@@ -3,7 +3,7 @@ pytorch code of "CFSNet: Toward a Controllable Feature Space for Image Restorati
 
 #### [arXiv](https://arxiv.org/abs/1904.00634)
 
-<div align=center><img width="150" height="150" src="https://github.com/qibao77/CFSNet/edit/master/figs/coupling_module.png"/></div>
+<div align=center><img width="150" height="150" src="https://github.com/qibao77/CFSNet/blob/master/figs/coupling_module.png"/></div>
 
 Coupling module architecture.
 
