@@ -60,6 +60,6 @@ Visual results of single image super-resolution with unseen degradation (the blu
 
 <div align=center><img width="200" height="200" src="https://github.com/qibao77/CFSNet/blob/master/figs/deblur_tiger_crop.gif"/></div>
 
-Smooth control of blur removal and detail sharpening with control scalar α_in from 0 to 1.
+Smooth control of blur removal and detail sharpening with control scalar α_in from 0 to 0.8.
 
 
