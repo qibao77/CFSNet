@@ -1,7 +1,7 @@
 # CFSNet
 pytorch code of "CFSNet: Toward a Controllable Feature Space for Image Restoration"（ICCV2019）
 
-#### [[arXiv](https://arxiv.org/abs/1904.00634)][[Poster](https://github.com/qibao77/CFSNet/blob/master/CFSNet_poster.pdf)]
+#### [[Paper](http://openaccess.thecvf.com/content_ICCV_2019/papers/Wang_CFSNet_Toward_a_Controllable_Feature_Space_for_Image_Restoration_ICCV_2019_paper.pdf)][[arXiv](https://arxiv.org/abs/1904.00634)][[Poster](https://github.com/qibao77/CFSNet/blob/master/CFSNet_poster.pdf)]
 
 <div align=center><img width="360" height="240" src="https://github.com/qibao77/CFSNet/blob/master/figs/coupling_module.png"/></div>
 
@@ -14,6 +14,14 @@ The framework of our proposed controllable feature space network (CFSNet). The d
 If you find our work useful in your research or publications, please consider citing:
 
 ```latex
+@InProceedings{Wang_2019_ICCV,
+author = {Wang, Wei and Guo, Ruiming and Tian, Yapeng and Yang, Wenming},
+title = {CFSNet: Toward a Controllable Feature Space for Image Restoration},
+booktitle = {The IEEE International Conference on Computer Vision (ICCV)},
+month = {October},
+year = {2019}
+}
+
 @article{wang2019cfsnet,
   title={CFSNet: Toward a Controllable Feature Space for Image Restoration},
   author={Wang, Wei and Guo, Ruiming and Tian, Yapeng and Yang, Wenming},
