@@ -1,0 +1,95 @@
+{
+  "name": "sr/step2" // name to save training results
+  , "model":"CFSNet"
+  , "task_type": "sr" // sr, deblock, denoise
+  , "scale": 4 // upscale for SR (x4 for SR and x3 for SR+Deblur in our paper)
+  , "input_alpha":1 // control the variable alpha_in to get different image restoration results
+  , "gpu_ids": [6]
+  , "is_train": true
+  , "use_gan": true
+  , "use_tensorboard_logger": true // you can use tensorboard to observe the loss curve
+
+  , "path": {
+    "root":  "/media/data1/CFSNet/train/" // path to save training results
+    , "saved_model": null // path of the trained model
+    , "VGG_model_path": "../vgg19-dcbb9e9d.pth" // path of the pretrained VGG model used to get perceptual loss
+    , "log": null //initialized in options.py
+    , "models": null //initialized in options.py
+    , "experiments_root": null //initialized in options.py
+  }
+
+  , "datasets": {
+    "train": {
+      "name": "DIV2K"
+      , "mode": "sr" // the type of datasets
+      , "dataroot_GT": "../data/DIV2K/DIV2K800_sub.lmdb" //we use lmdb file to speed up training
+      , "dataroot_LR": "../data/DIV2K/DIV2K800_sub_bicLRx4.lmdb"
+      , "batch_size": 16 
+      , "GT_size": 128 // the size of the ground truth images
+      
+      , "use_flip": true //data augmentation
+      , "use_rot": true
+
+      , "use_shuffle": true
+      , "n_workers": 8
+      , "data_type": null //initialized in options.py
+      , "subset_file": null //initialized in options.py
+      , "phase": null //initialized in options.py
+      , "scale": null //initialized in options.py
+    }
+    , "val": {
+      "name": "val_set5_part"
+      , "mode": "sr"
+      , "dataroot_GT": "../data/Set5"
+      , "dataroot_LR": "../data/Set5_bicLRx4"
+    }
+  }
+
+  , "network_G": {
+    "in_channel": 3 //the number of the input channel
+    , "out_channel": 3 // the number of the output channel
+    , "num_channels": 64 // features channel number
+    , "n_main_b": 30 //the number of the main blocks in the main branch
+    , "n_tuning_b": 30 //the number of the tuning blocks in the tuning branch
+  }
+  , "network_D": {
+    "model_D_type":"discriminator_wgan"
+    , "num_channels": 64 // the number of channels in the feature map.
+    , "in_channel": 3 //the number of the input channel
+  }
+
+  , "train": {
+    "training_phase": "tuning_branch" //two training stages: Step1: main_branch; Step2: tuning_branch
+    , "lr_G": 1e-4 // learning rate
+    , "weight_decay_G": 0 
+    , "lr_scheme": "MultiStepLR" // learning rate decay scheme
+    , "niter": 600000 //total iterations = epoch*train_size = epoch*(dataset_size/batch_size)
+    , "lr_steps": [300000, 400000, 450000, 500000, 550000, 600000]
+    , "lr_gamma": 0.8 // learning rate decreases by a factor of 0.8
+    , "val_freq": 5000 // evaluate the model every 5000 steps
+    , "beta1_G": 0.9
+	
+    , "lr_D": 1e-4
+    , "weight_decay_D": 0
+    , "beta1_D": 0.9
+
+    , "loss_distortion_type": "l1" // the type of distortion loss: l1 or l2
+    , "loss_distortion_weight": 0.1 // the weight of distortion loss
+    , "loss_feature_type": "l1" // the type of perceptual loss: l1 or l2
+    , "loss_feature_weight": 0.001 // the weight of perceptual loss
+    , "loss_gan_type": "wgan-gp" // the type of gan loss:
+    , "loss_gan_weight": 0.001 // the weight of gan loss
+
+    //for wgan-gp
+     , "D_update_ratio": 1
+     , "D_init_iters": 0
+     , "gp_weigth": 10 // the weight of gradient penalty
+
+    , "manual_seed": 0
+  }
+
+  , "logger": {
+    "print_freq": 1000 // print the training process every 1000 steps
+    , "save_checkpoint_freq": 10000 //save the model every 10000 steps
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "name": "denoise_gray/10" //name to save results
+  , "model":"CFSNet"
+  , "task_type": "denoise" //sr, deblock, denoise
+  , "input_alpha":1 //control the variable alpha_in to get different image restoration results
+  , "noise_level": 50 //the noise level of the input images
+  , "gpu_ids": [3]
+  , "is_train": false
+  , "use_gan": false
+  , "use_tensorboard_logger": false
+
+  , "path": {
+    "root": "/media/data1/CFSNet/test/" // path to save results
+    , "saved_model": "../models/latest_G.pth" // path of the trained model
+    , "log": null //initialized in options.py
+    , "results_root": null //initialized in options.py
+  }
+  "test_1": {
+    "name": "Set12"
+    , "mode": "denoise" // the type of datasets
+    , "dataroot_GT": "../data/Set12"
+    , "color": "gray" //gray, RGB
+    }
+  , "datasets": {
+
+  ,"test_2": {
+    "name": "Set68"
+    , "mode": "denoise"
+    , "dataroot_GT": "../data/Set68"
+    , "color": "gray" //gray, RGB
+    }
+//  "test_3": {
+//    "name": "kodak24"
+//    , "mode": "denoise"
+//    , "dataroot_GT": "../data/kodak24_denoise"
+//    , "color": "RGB" //gray, RGB
+//    }
+  }
+
+  , "network_G": {
+    "in_channel": 1 //the number of the input channel
+    , "out_channel": 1 // the number of the output channel
+    , "num_channels": 64 // the number of channels in the feature map.
+    , "n_main_b": 10 //the number of the main blocks in the main branch
+    , "n_tuning_b": 10 //the number of the tuning blocks in the tuning branch
+  }
+}

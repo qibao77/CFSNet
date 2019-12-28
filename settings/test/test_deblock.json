@@ -1,0 +1,34 @@
+{
+  "name": "deblock/jpeg_40"
+  , "model":"CFSNet"
+  , "task_type": "deblock" //sr, deblock, denoise
+  , "input_alpha":1 //control the variable alpha_in to get different image restoration results
+  , "gpu_ids": [3]
+  , "is_train": false
+  , "use_gan": false
+  , "use_tensorboard_logger": false
+
+  , "path": {
+    "root": "/media/data1/CFSNet/test/" // path to save results
+    , "saved_model": "../models/latest_G.pth" // path of the trained model
+    , "log": null //initialized in options.py
+    , "results_root": null //initialized in options.py
+  }
+
+  , "datasets": {
+  "test_1": {
+    "name": "LIVE1"
+      , "mode": "deblock" // the type of datasets
+      , "dataroot_GT": "../data/LIVE1_Y_jpeg/HR"
+      , "dataroot_LR": "../data/LIVE1_Y_jpeg/jpeg_40"
+    }
+  }
+
+  , "network_G": {
+    "in_channel": 1 //the number of the input channel
+    , "out_channel": 1 // the number of the output channel
+    , "num_channels": 64 // the number of channels in the feature map.
+    , "n_main_b": 10 //the number of the main blocks in the main branch
+    , "n_tuning_b": 10 //the number of the tuning blocks in the tuning branch
+  }
+}
