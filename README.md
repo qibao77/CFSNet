@@ -31,8 +31,50 @@ year = {2019}
 ```
 
 ## Contents
-1. [Test](#test)
-2. [Results](#results)
+1. [Illustration](#illustration)
+2. [Test](#test)
+3. [Results](#results)
+
+## Illustration
+
+The overall code framework:
+          CFSNet ── codes
+                      └── data
+                           ├──deblock_dataset.py
+                           ├──denoise_dataset.py
+                           ├──sr_dataset.py
+                           └── util.py
+                      ├──models
+                           └── modules
+                                  ├── architecture.py
+                                  ├── block.py
+                                  ├── loss.py
+                                  ├── main_net.py
+                                  └── tuning_blocks.py
+                           ├── CFSNet_model.py
+                      ├──settings
+                           ├── test
+                           ├── train
+                           └──options.py
+                      ├──utils
+                           ├── logger.py
+                           └── util.py
+                      ├── train.py
+                      └── test.py
+                      
+### Dependencies and Installation
+
+	* GPU: cuda 8.0.  cat /usr/local/cuda/version.txt. 
+	* Python 3.6.3 (Recommend to use Anaconda)
+	* Packages: 
+pip install torch-0.4.1-cp36-cp36m-manylinux1_x86_64.whl
+pip install torchvision-0.2.1-py2.py3-none-any.whl
+pip install opencv-python
+pip install opencv-contrib-pytho
+pip install lmdb
+pip install scikit_image-0.13.1-cp36-cp36m-manylinux1_x86_64.whl
+pip install tensorboard-logger
+(some .whl packages can be found here: [Google Cloud Disk](https://drive.google.com/drive/folders/1uYOMtNC_xYw9OGuaAs3COAg3fUURdSbH?usp=sharing))
 
 ## Test
 
