@@ -38,6 +38,7 @@ year = {2019}
 ## Illustration
 
 The overall code framework:
+```
           CFSNet ── codes
                       └── data
                            ├──deblock_dataset.py
@@ -61,12 +62,13 @@ The overall code framework:
                            └── util.py
                       ├── train.py
                       └── test.py
-                      
-### Dependencies and Installation
+```                
+##### Dependencies and Installation
 
-	* GPU: cuda 8.0.  cat /usr/local/cuda/version.txt. 
-	* Python 3.6.3 (Recommend to use Anaconda)
-	* Packages: 
+GPU: cuda 8.0.  cat /usr/local/cuda/version.txt.  
+Python 3.6.3 (Recommend to use Anaconda)  
+Packages: 
+```
 pip install torch-0.4.1-cp36-cp36m-manylinux1_x86_64.whl
 pip install torchvision-0.2.1-py2.py3-none-any.whl
 pip install opencv-python
@@ -74,11 +76,18 @@ pip install opencv-contrib-pytho
 pip install lmdb
 pip install scikit_image-0.13.1-cp36-cp36m-manylinux1_x86_64.whl
 pip install tensorboard-logger
+```
 (some .whl packages can be found here: [Google Cloud Disk](https://drive.google.com/drive/folders/1uYOMtNC_xYw9OGuaAs3COAg3fUURdSbH?usp=sharing))
 
 ## Test
 
-code coming soon...
+We provide some trained models of CFSNet, and you can download them from [Google Cloud Disk](https://drive.google.com/drive/folders/12O5FDgZ99jdbyeyLeAgiM-4ygsoAeq0l?usp=sharing)
+1. Prepare training datasets according to task type. (Some datasets can be found in [Google Cloud Disk](https://drive.google.com/open?id=1C0VjWZr2dVQsPyN9jXzGxR-Y0iR9oX0A). More details are in ['settings/test'](settings/test).)
+2. Modify the configuration file (settings/test/*.json) according to your personal situation. (please refer to ['settings/test'](settings/test) for instructions.)
+3. Run following command for evaluation: 
+``` python test.py -opt settings/test/*.json ```
+
+
 
 ## Results
 
