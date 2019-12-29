@@ -32,8 +32,8 @@ year = {2019}
 
 ## Contents
 1. [Illustration](#illustration)
-2. [Test](#test)
-3. [Train](#train)
+2. [Testing](#testing)
+3. [Training](#training)
 4. [Results](#results)
 
 ## Illustration
@@ -80,7 +80,7 @@ pip install tensorboard-logger
 ```
 (some .whl packages can be found here: [Google Cloud Disk](https://drive.google.com/drive/folders/1uYOMtNC_xYw9OGuaAs3COAg3fUURdSbH?usp=sharing))
 
-## Test
+## Testing
 
 We provide some trained models of CFSNet, and you can download them from [Google Cloud Disk](https://drive.google.com/drive/folders/12O5FDgZ99jdbyeyLeAgiM-4ygsoAeq0l?usp=sharing). 
 1. Prepare training datasets according to task type. (Some datasets can be found in [Google Cloud Disk](https://drive.google.com/open?id=1C0VjWZr2dVQsPyN9jXzGxR-Y0iR9oX0A).
@@ -90,7 +90,7 @@ We provide some trained models of CFSNet, and you can download them from [Google
 python test.py -opt settings/test/*.json 
 ```
 
-## Train
+## Training
 
 1. Prepare training datasets according to task type.
 2. Modify the configuration file (settings/test/*.json) according to your personal situation. (Please refer to ['settings/train'](settings/train) for instructions.)
