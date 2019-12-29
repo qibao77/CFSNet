@@ -83,7 +83,7 @@ pip install tensorboard-logger
 ## Testing
 
 We provide some trained models of CFSNet, and you can download them from [Google Cloud Disk](https://drive.google.com/drive/folders/12O5FDgZ99jdbyeyLeAgiM-4ygsoAeq0l?usp=sharing). 
-1. Prepare training datasets according to task type. (Some datasets can be found in [Google Cloud Disk](https://drive.google.com/open?id=1C0VjWZr2dVQsPyN9jXzGxR-Y0iR9oX0A).
+1. Prepare training datasets according to task type. (Some datasets can be found in [Google Cloud Disk](https://drive.google.com/open?id=1C0VjWZr2dVQsPyN9jXzGxR-Y0iR9oX0A).)
 2. Modify the configuration file (settings/test/*.json) according to your personal situation. (please refer to ['settings/test'](settings/test) for instructions.)
 3. Run following command for evaluation: 
 ```python
