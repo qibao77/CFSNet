@@ -1,12 +1,10 @@
 import os
 from collections import OrderedDict
-
 import torch
 import torch.nn as nn
 from torch.optim import lr_scheduler
 from .modules.architecture import *
 from .modules.loss import GANLoss, GradientPenaltyLoss
-
 
 class CFSNetModel():
     def __init__(self, opt):
@@ -31,10 +29,10 @@ class CFSNetModel():
                            task_type=opt['task_type']).to(self.device)
         if gpu_ids:
             assert torch.cuda.is_available()
-            # self.netG = nn.DataParallel(self.netG)
+            self.netG = nn.DataParallel(self.netG)
 
         if self.is_train and self.use_gan:
-            self.netD = define_D(opt).to(self.device)
+            self.netD = define_D(opt).to(self.device) #Discriminator
             self.netD.train()
 
         self.load()
@@ -55,7 +53,6 @@ class CFSNetModel():
                     filter(lambda p: p.requires_grad, self.netG.tuning_blocks.parameters()), lr=train_opt['lr_G'],
                     weight_decay=wd_G)
             self.netG.train()
-
             self.optimizers.append(self.optimizer_G)
 
             # define loss
@@ -138,29 +135,20 @@ class CFSNetModel():
     def optimize_parameters(self, step):
         # optimize G
         if self.training_phase == "tuning_branch":
-            # if isinstance(self.netG, nn.DataParallel):
-            #     self.netG = self.netG.module
             for parm in self.netG.main.parameters():
                 parm.requires_grad = False
             for pa in self.netG.tuning_blocks.parameters():
                 pa.requires_grad = True
-            for pa in self.netD.parameters():
-                pa.requires_grad = False
         self.control_vector = torch.ones(self.Input.shape[0], 512) * self.input_alpha
         if self.opt['task_type'] == 'sr':
             self.control_vector = self.control_vector*0.5
+        self.optimizer_G.zero_grad()
         self.Output = self.netG(x=self.Input, control_vector=self.control_vector)
 
         if self.use_gan:
             loss_total_g = 0
-
             if step % self.D_update_ratio == 0 and step >= self.D_init_iters:
                 # Train G
-                for pa in self.netG.tuning_blocks.parameters():
-                    pa.requires_grad = True
-                for pa in self.netD.parameters():
-                    pa.requires_grad = False
-                self.netG.zero_grad()
                 if self.loss_dis:  # distortion loss
                     loss_dis_g = self.loss_dis_w * self.loss_dis(self.Output, self.ground_truth)
                     loss_total_g = loss_dis_g
@@ -178,10 +166,6 @@ class CFSNetModel():
                 self.optimizer_G.step()
 
             # Train D
-            for pa in self.netG.tuning_blocks.parameters():
-                pa.requires_grad = False
-            for pa in self.netD.parameters():
-                pa.requires_grad = True
             self.netD.zero_grad()
             loss_total_d = 0
             pred_d_real = self.netD(self.ground_truth)
